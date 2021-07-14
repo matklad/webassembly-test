@@ -41,6 +41,8 @@ test result: FAILED. 1 passed; 1 failed; 1 ignored;
 environment. In fact, it is more of a pattern rather than a library, and can be
 easily adopted to a particular use-case.
 
+MSRV: 1.54.0 (**beta** at the time of writing).
+
 ## Writing Tests
 
 When writing tests, use `#[webassembly_test]` rather than the usual `#[test]`

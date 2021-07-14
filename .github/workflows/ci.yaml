@@ -23,9 +23,11 @@ jobs:
         fetch-depth: 0 # fetch tags for publish
     - uses: actions-rs/toolchain@v1
       with:
-        toolchain: stable
+        toolchain: beta
         profile: minimal
         override: true
+        components: rustfmt
+        target: wasm32-unknown-unknown
 
     - run: cargo run -p xtask -- ci
       env:
