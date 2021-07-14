@@ -1,0 +1,2 @@
+[target.wasm32-unknown-unknown]
+runner = "cargo run --manifest-path ../../webassembly-test-runner/Cargo.toml --"

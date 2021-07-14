@@ -1,0 +1,14 @@
+[package]
+name = "webassembly-test-runner"
+version = "0.1.0"
+description = "Sample runner for webassembly-test crate"
+categories = ["development-tools::testing", "wasm"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/matklad/webassembly-test"
+authors = ["Aleksey Kladov <aleksey.kladov@gmail.com>"]
+edition = "2018"
+
+
+[dependencies]
+wasmtime = "0.28"
+anyhow = "1"
