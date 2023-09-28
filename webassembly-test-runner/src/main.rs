@@ -1,7 +1,8 @@
 use anyhow::{bail, Result};
+use std::process::ExitCode;
 use wasmtime::*;
 
-fn main() -> Result<()> {
+fn main() -> Result<ExitCode> {
     let file = match std::env::args().nth(1) {
         Some(it) => it,
         None => {
@@ -61,7 +62,7 @@ fn main() -> Result<()> {
         failed,
         ignored,
     );
-    Ok(())
+    Ok(if failed > 0 { ExitCode::FAILURE } else { ExitCode::SUCCESS })
 }
 
 struct TestMeta<'a> {
