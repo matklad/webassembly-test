@@ -39,19 +39,23 @@ fn main() -> Result<ExitCode> {
         } else {
             let f = instance.get_typed_func::<(), (), _>(&mut store, export.name())?;
 
-            let pass = f.call(&mut store, ()).is_ok();
-            if pass {
-                passed += 1;
-                eprintln!(" ok")
-            } else {
-                // Reset instance on test failure. WASM uses `panic=abort`, so
-                // `Drop`s are not called after test failures, and a failed test
-                // might leave an instance in an inconsistent state.
-                store = Store::new(&engine, ());
-                instance = Instance::new(&mut store, &module, &[])?;
+            let result = f.call(&mut store, ());
+            match result {
+                Ok(_) => {
+                    passed += 1;
+                    eprintln!(" ok")
+                }
+                Err(e) => {
+                    // Reset instance on test failure. WASM uses `panic=abort`, so
+                    // `Drop`s are not called after test failures, and a failed test
+                    // might leave an instance in an inconsistent state.
+                    store = Store::new(&engine, ());
+                    instance = Instance::new(&mut store, &module, &[])?;
 
-                failed += 1;
-                eprintln!(" FAILED")
+                    failed += 1;
+                    eprintln!(" FAILED");
+                    eprintln!("{:?}", e)
+                }
             }
         }
     }
